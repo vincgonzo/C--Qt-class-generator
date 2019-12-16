@@ -8,17 +8,33 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     QWidget wind;
-    QLineEdit *nom = new QLineEdit;
-    QLineEdit *prenom = new QLineEdit;
-    QLineEdit *age = new QLineEdit;
+    QLineEdit *class_n = new QLineEdit;
+    QLineEdit *mother_c = new QLineEdit;
+    QLineEdit *author_n = new QLineEdit;
+    QDateEdit *date_creation = new QDateEdit;
+    QTextEdit *comments = new QTextEdit;
 
     QVBoxLayout *layoutMain = new QVBoxLayout;
 
-    // Options layout
-    QGroupBox *gpBox = new QGroupBox("Class Definition", &wind);
-    QRadioButton *header_include = new QRadioButton("Protéger le header contre les inclusions multiples.");
-    QRadioButton *construct_def = new QRadioButton("Créer un constructeur par défaut.");
-    QRadioButton *destruct = new QRadioButton("Générer un destructeur.");
+
+    /**
+     * @brief gpBoxDef
+     */
+    QGroupBox *gpBoxDef = new QGroupBox("Class Definition", &wind);
+    QFormLayout *layoutForm = new QFormLayout;
+    layoutForm->addRow("&Nom de la classe", class_n);
+    layoutForm->addRow("Class &Mere", mother_c);
+
+    // Container injections
+    gpBoxDef->setLayout(layoutForm);
+
+    /**
+     * @brief gpBoxOpt
+     */
+    QGroupBox *gpBoxOpt = new QGroupBox("Add Options", &wind);
+    QCheckBox *header_include = new QCheckBox("Protéger le header contre les inclusions multiples.", &wind);
+    QCheckBox *construct_def = new QCheckBox("Créer un constructeur par défaut.", &wind);
+    QCheckBox *destruct = new QCheckBox("Générer un destructeur.", &wind);
 
     header_include->setChecked(true);
 
@@ -28,20 +44,24 @@ int main(int argc, char *argv[])
     layoutDef->addWidget(destruct);
 
     // Attrib def section to group
-    //gpBox->setLayout(layoutDef);
+    gpBoxOpt->setLayout(layoutDef);
+
+    /**
+     * @brief gpBoxComment
+     */
+    //QCheckBox *add_comment = new QCheckBox("Ajouter des commentaires.", &wind);
+    QGroupBox *gpBoxComment = new QGroupBox("Add Comments", &wind);
+    QFormLayout *layoutFormComment = new QFormLayout;
+    layoutFormComment->addRow("Author Name :", author_n);
+    layoutFormComment->addRow("Creation Date :", date_creation);
+    layoutFormComment->addRow("Describing use of Class", comments);
+    gpBoxComment->setLayout(layoutFormComment);
 
 
-    QGroupBox *gpBoxOpt = new QGroupBox("Options", &wind);
-    QFormLayout *layoutForm = new QFormLayout;
-    layoutForm->addRow("Votre &nom", nom);
-    layoutForm->addRow("Votre &prénom", prenom);
-    layoutForm->addRow("Votre &age", age);
-
-    // Container injections
-    //gpBoxOpt->setLayout(layoutForm);
-
-    layoutMain->addLayout(layoutDef);
-    layoutMain->addLayout(layoutForm);
+    // Layout attribution to general
+    layoutMain->addWidget(gpBoxDef);
+    layoutMain->addWidget(gpBoxOpt);
+    layoutMain->addWidget(gpBoxComment);
 
     wind.setLayout(layoutMain);
     wind.show();
