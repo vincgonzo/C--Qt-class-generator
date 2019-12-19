@@ -15,13 +15,13 @@ private slots:
     void generateCode();
 
 private:
-    QLineEdit *class_n,  *mother_c, *author_n;
-    QDateEdit *date_creation;
-    QTextEdit *comments;
-    QCheckBox *header_include, *construct_def, *destruct;
+    QLineEdit *m_class_n,  *m_mother_c, *m_author_n;
+    QDateEdit *m_date_creation;
+    QTextEdit *m_comments;
+    QCheckBox *m_header_include, *m_construct_def, *m_destruct;
 
-    QGroupBox *gpBoxComment;
-    QPushButton *generate_btn, *quit_btn;
+    QGroupBox *m_gpBoxComment;
+    QPushButton *m_generate_btn, *m_quit_btn;
 };
 
 #endif // CLASSGENERATOR_H
